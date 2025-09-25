@@ -2,33 +2,36 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
 name: python CI
+
 on: 
   push:
     branches:
-      -main
+      - main
   pull_request:
     branches:
-      -main
+      - main
+
 jobs:
   test:
-    runs-on : ubuntu-latest
-      steps:
-          #step1 : checkout the code
-          -name: checkout code
-           uses: actions/checkout@v2
+    runs-on: ubuntu-latest
 
-          #step2 : setup python environment
-          -name: Setup Python
-           uses: actions/setup-python@v2
-           with:
-              python-version:'3.8'
+    steps:
+      # step1: checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-          #step3 : install dependencies
-          -name: Install dependencies
-           run: |
-                 python -m pip install --upgrade pip
-                 pip install -r requirements.txt
+      # step2: setup python environment
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
 
-          #step4 : run tests
-          -name: run tests
-           run: pytest
+      # step3: install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # step4: run tests
+      - name: Run tests
+        run: pytest
